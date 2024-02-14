@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= trip.title %></title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <% include ("../partials/header.ejs") %>
+    <h2><%= trip.title %></h2>
+    <p><%= trip.description %></p>
+    <% if (trip.questions && trip.questions.length > 0) { %>
+    <h3>Questions:</h3>
+    <ul>
+      <% trip.questions.forEach(function(question) { %>
+      <li><%= question.body %> - <em>by <%= question.user %></em></li>
+      <% }); %>
+    </ul>
+    <% } %> <% if (user && user.role === 'user') { %>
+    <form action="/trips/<%= trip._id %>/question" method="POST">
+      <label for="question">Your question:</label>
+      <textarea id="question" name="question" required></textarea>
+      <button type="submit">Submit Question</button>
+    </form>
+    <% } %> <% include ("../partials/footer.ejs") %>
+  </body>
+</html>
